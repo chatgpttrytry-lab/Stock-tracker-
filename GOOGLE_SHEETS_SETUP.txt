@@ -1,0 +1,47 @@
+# SATRUGHAN SWING TRACKER — Google Sheets setup (Free starter)
+
+## Files
+- `index.html`: upload to GitHub Pages.
+- `Code.gs`: paste into a Google Apps Script project connected to your Google Sheet.
+
+## 1. Create the Google Sheet
+Create two tabs exactly named `Quotes` and `Candles`.
+
+### Quotes tab
+Row 1 headers:
+`Symbol | Exchange | Price | Timestamp`
+
+Rows example:
+- `NSE:ITC | NSE | =IFERROR(GOOGLEFINANCE(A2,"price"),) | =IFERROR(GOOGLEFINANCE(A2,"tradetime"),NOW())`
+- `NSE:INFY | NSE | =IFERROR(GOOGLEFINANCE(A3,"price"),) | =IFERROR(GOOGLEFINANCE(A3,"tradetime"),NOW())`
+- `NSE:RELIANCE | NSE | =IFERROR(GOOGLEFINANCE(A4,"price"),) | =IFERROR(GOOGLEFINANCE(A4,"tradetime"),NOW())`
+
+Important: Put the formula in C2 and D2 and fill down. Keep A as the exchange-prefixed ticker. `GOOGLEFINANCE` quotes may be delayed up to 20 minutes and are not guaranteed for every exchange/symbol.
+
+### Candles tab
+Row 1 headers:
+`Date | Symbol | Exchange | Open | High | Low | Close | Volume`
+
+Paste/import real daily OHLCV data here from a permitted source. Use one row per symbol per date. Do NOT put fabricated/demo prices in this tab and do not assume the current quote is historical candle data. The app can draw candlesticks only for genuine OHLCV rows.
+
+## 2. Add Apps Script bridge
+1. In the Google Sheet, open Extensions → Apps Script.
+2. Replace the editor contents with `Code.gs` content from this package.
+3. Save.
+4. Deploy → New deployment → Select type: Web app.
+5. Execute as: Me. Choose access carefully. If selecting “Anyone”, understand the sheet data returned by the URL is publicly readable; keep only public market data in this spreadsheet.
+6. Deploy and copy the URL ending in `/exec`.
+
+## 3. Connect GitHub Pages tracker
+1. Upload `index.html` to your repository root and enable GitHub Pages.
+2. Open the tracker page; in “Candlestick Chart”, paste the Apps Script `/exec` URL.
+3. Tap “Connect / Refresh Google Sheet”.
+4. Choose auto refresh interval if desired.
+
+## Data integrity notes
+- The page starts in `DEMO — NOT LIVE` mode. It will never label seeded demo values as live.
+- Google Sheets bridge connection is not preconfigured until you deploy the Apps Script and paste your own URL.
+- GoogleFinance current quotes may be delayed up to 20 minutes.
+- Google documents that historical GOOGLEFINANCE values cannot be accessed through Sheets API or Apps Script. Therefore, candlestick history must be separately imported as OHLCV rows in the `Candles` tab (or imported through the app's CSV upload).
+- Auto-refresh refreshes the bridge response, but cannot force GoogleFinance to update faster than its own data refresh policy.
+- BUY/SELL/HOLD/WAIT signals are rule-based educational indicators, not guaranteed advice. No orders are placed.

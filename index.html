@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>SATRUGHAN Swing Trading Stock Tracker</title>
+<style>
+:root{--bg:#0b1220;--panel:#111c2e;--panel2:#172338;--text:#e8eef8;--muted:#91a2ba;--line:#293951;--green:#26c281;--red:#ff647c;--yellow:#f5c451;--blue:#69a7ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#09111f,#101a2c 55%,#0b1220);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans Oriya",sans-serif}header{padding:22px max(16px,calc((100% - 1200px)/2));border-bottom:1px solid var(--line);background:#0b1220dd;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#28c58b,#4186ff);display:grid;place-items:center;font-weight:900;color:#071525;font-size:20px}.brand h1{font-size:19px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.wrap{max-width:1200px;margin:auto;padding:20px 16px 40px}.notice{border:1px solid #6e5726;background:#2b2516;color:#f7df9a;padding:13px 15px;border-radius:12px;font-size:13px;line-height:1.65;margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:linear-gradient(160deg,#142137,#101a2a);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-6{grid-column:span 6}.span-4{grid-column:span 4}.span-3{grid-column:span 3}.card h2{font-size:15px;margin:0 0 14px}.muted{color:var(--muted)}.small{font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}.stat{padding:15px;border:1px solid var(--line);border-radius:14px;background:#111c2e}.stat .label{color:var(--muted);font-size:12px}.stat .value{font-size:22px;font-weight:750;margin-top:7px;overflow-wrap:anywhere}.stat .sub{font-size:11px;color:var(--muted);margin-top:4px}label{display:block;font-size:12px;color:#b8c6d9;margin:0 0 6px}input,select,textarea{width:100%;background:#0a1424;color:var(--text);border:1px solid #344761;border-radius:9px;padding:10px 11px;font:inherit;font-size:13px;min-width:0}input[type=checkbox]{width:auto;accent-color:#3acb93}input[type=range]{padding:0;accent-color:#3acb93}button,.filelabel{border:0;border-radius:9px;padding:10px 13px;background:#2cc58c;color:#061a16;font-weight:750;font:inherit;font-size:13px;cursor:pointer;display:inline-flex;justify-content:center;align-items:center;gap:7px}button.secondary,.filelabel.secondary{background:#22334b;color:var(--text);border:1px solid #354b68}button:disabled{opacity:.45;cursor:not-allowed}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.checkrow{display:flex;gap:8px;align-items:center;font-size:13px;color:#d0d9e7;margin:9px 0}.pill{display:inline-flex;border-radius:99px;padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.2px}.buy{background:#153e32;color:#6af0b7}.sell{background:#4a202b;color:#ff9eac}.hold{background:#3b321c;color:#ffdc7a}.wait{background:#25354b;color:#b9d6ff}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}th,td{padding:11px 9px;border-bottom:1px solid var(--line);text-align:left}th{color:#a9bad0;font-weight:650;background:#101a2a;position:sticky;top:0}tbody tr:hover{background:#1a2a40}.positive{color:var(--green)}.negative{color:var(--red)}.meter{height:6px;background:#28384e;border-radius:10px;overflow:hidden;margin-top:8px}.meter span{display:block;height:100%;background:linear-gradient(90deg,#2ac58b,#72e2ba)}.empty{text-align:center;color:var(--muted);padding:28px 10px;font-size:13px}.foot{font-size:11px;line-height:1.7;color:var(--muted);margin-top:16px}.hidden{display:none!important}.tagline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.data-status{font-size:12px;padding:6px 9px;border-radius:8px;background:#1d3045;color:#c4d7ee}.signalnote{font-size:12px;line-height:1.65;color:#b9c8da;margin-top:10px}.rangevalue{font-weight:700;color:#bcebd7}
+@media(max-width:850px){.span-8,.span-6,.span-4,.span-3{grid-column:span 12}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.fields.three{grid-template-columns:repeat(2,minmax(0,1fr))}header{position:static}}
+@media(max-width:480px){.fields,.fields.three{grid-template-columns:1fr}.stat .value{font-size:19px}.wrap{padding:14px 10px 28px}.card{padding:13px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">S</div><div><h1>SATRUGHAN <span style="color:#53d6a2">SWING TRACKER</span></h1><p>Market scanner · Technical analysis · କେବଳ Suggestions, Trading ନୁହେଁ</p></div></div></header>
+<main class="wrap">
+<div class="notice"><b>ଡାଟା ସତର୍କତା:</b> Demo mode ର ଦାମ କଳ୍ପିତ ଉଦାହରଣ, ପ୍ରକୃତ ବଜାର ଦାମ ନୁହେଁ। ପ୍ରତ୍ୟେକ stock ପାଖରେ <b>Google Finance</b> ବଟନ୍ ଦବାଇ Google ରେ ଦାମ ଖୋଲି ଯାଞ୍ଚ କରିପାରିବେ। Google Finance ଲିଙ୍କ୍ ନିଜେ live data sync କରେନାହିଁ। Google Sheets bridge connect ନହେଉଅବଧି ଡାଟା DEMO ହିସାବରେ ରହିବ। GoogleFinance quote 20 ମିନିଟ୍ ପର୍ଯ୍ୟନ୍ତ delayed ହୋଇପାରେ; chart/technical analysis ପାଇଁ ବାସ୍ତବ OHLCV candles ଦରକାର। କୌଣସି BUY/SELL ସଙ୍କେତ ଲାଭର ଗ୍ୟାରେଣ୍ଟି ନୁହେଁ।</div>
+<div class="stats">
+ <div class="stat"><div class="label">Stocks Scanned</div><div class="value" id="statScanned">0</div><div class="sub">ବର୍ତ୍ତମାନ Filter ପରେ</div></div>
+ <div class="stat"><div class="label">BUY Setup</div><div class="value positive" id="statBuy">0</div><div class="sub">କେବଳ ନିୟମ ମେଳ ହେଲେ</div></div>
+ <div class="stat"><div class="label">SELL / EXIT</div><div class="value negative" id="statSell">0</div><div class="sub">Risk rule ଆଧାରିତ</div></div>
+ <div class="stat"><div class="label">Data Status</div><div class="value" style="font-size:16px" id="statData">DEMO</div><div class="sub" id="statStamp">Timestamp ନାହିଁ</div></div>
+</div>
+<div class="grid">
+<section class="card span-8">
+ <div class="tagline"><h2>📊 Stock Scan Results</h2><span class="data-status" id="modeBadge">DEMO DATA</span></div>
+ <div class="fields" style="margin-bottom:12px">
+  <div><label for="search">Stock Search / Symbol</label><input id="search" placeholder="ଯଥା: RELIANCE, TCS" /></div>
+  <div><label for="exchange">Exchange / Universe</label><select id="exchange"><option value="both">NSE + BSE (Imported list)</option><option value="nse">NSE</option><option value="bse">BSE</option></select></div>
+ </div>
+ <div class="tablewrap"><table><thead><tr><th>Stock</th><th>Close ₹</th><th>Change</th><th>RSI</th><th>Trend</th><th>Suggestion</th><th>R:R</th><th>Google</th></tr></thead><tbody id="results"></tbody></table></div>
+ <div class="empty hidden" id="noResults">ଏହି Filter ଅନୁସାରେ କୌଣସି Stock ମିଳିଲା ନାହିଁ।</div>
+ <div class="actions"><button id="rescan">↻ Scan Again</button><button class="secondary" id="export">Export CSV</button><button class="secondary" id="reset">Reset Filters</button></div>
+ <p class="foot">ଟିପ୍ପଣୀ: CSV ରେ ଦୈନିକ candle ଥିଲେ ଏହା swing trading analysis ପାଇଁ ଉପଯୋଗୀ। NSE/BSE ସମ୍ପୂର୍ଣ୍ଣ universe ଆପେଆପେ ଲୋଡ୍ ହୁଏ ନାହିଁ; imported CSV ରେ ଯେତିକି stock ଅଛି, ସେତିକି scan ହେବ।</p>
+</section>
+<section class="card span-4">
+ <h2>⚙️ Custom Scan Filters</h2>
+ <div class="fields">
+  <div><label for="minPrice">Min Price ₹</label><input id="minPrice" type="number" min="0" value="50"></div>
+  <div><label for="maxPrice">Max Price ₹</label><input id="maxPrice" type="number" min="0" value="10000"></div>
+  <div><label for="minRsi">Min RSI</label><input id="minRsi" type="number" min="0" max="100" value="45"></div>
+  <div><label for="maxRsi">Max RSI</label><input id="maxRsi" type="number" min="0" max="100" value="68"></div>
+  <div><label for="minChange">Min Daily Change %</label><input id="minChange" type="number" step=".1" value="-2"></div>
+  <div><label for="minVolume">Min Volume</label><input id="minVolume" type="number" min="0" value="0"></div>
+ </div>
+ <label style="margin-top:14px">Trend / Pattern</label>
+ <label class="checkrow"><input type="checkbox" id="trendOnly"> Close > EMA20 and EMA20 > EMA50</label>
+ <label class="checkrow"><input type="checkbox" id="volumeOnly"> Volume confirmation (above 20-day average)</label>
+ <label class="checkrow"><input type="checkbox" id="breakoutOnly"> Breakout near 20-day high</label>
+ <div class="actions"><button id="applyFilters">Apply Filters</button></div>
+</section>
+<section class="card span-6">
+ <h2>🗓️ Holding Period Customization</h2>
+ <div class="fields three">
+  <div><label for="holdMin">Min Days</label><input id="holdMin" type="number" min="1" max="90" value="5"></div>
+  <div><label for="holdMax">Max Days</label><input id="holdMax" type="number" min="1" max="180" value="20"></div>
+  <div><label for="candle">Candle Interval</label><select id="candle"><option value="1D">Daily (1D)</option><option value="1W">Weekly (1W)</option></select></div>
+ </div>
+ <p class="signalnote">Holding period କେବଳ ପ୍ଲାନ୍ ପାଇଁ; ଏହା ଭବିଷ୍ୟତ ଦାମ କେତେଦିନରେ ଲକ୍ଷ୍ୟରେ ପହଞ୍ଚିବ ନିଶ୍ଚିତ କରେ ନାହିଁ।</p>
+</section>
+<section class="card span-6">
+ <h2>🎛️ Suggestion Style — ନିଜେ ସେଟ୍ କରନ୍ତୁ</h2>
+ <div class="fields">
+  <div><label for="style">Strategy</label><select id="style"><option value="conservative">Conservative</option><option value="balanced">Balanced</option><option value="aggressive">Aggressive</option><option value="custom">Custom Rules</option></select></div>
+  <div><label for="minRR">Minimum Risk : Reward</label><select id="minRR"><option value="1.5">1 : 1.5</option><option value="2" selected>1 : 2</option><option value="2.5">1 : 2.5</option><option value="3">1 : 3</option></select></div>
+  <div><label for="rsiBuy">BUY RSI Ceiling</label><input id="rsiBuy" type="number" min="1" max="100" value="65"></div>
+  <div><label for="riskPct">Stop Loss ATR Multiplier</label><select id="riskPct"><option value="1">1.0 × ATR</option><option value="1.5" selected>1.5 × ATR</option><option value="2">2.0 × ATR</option><option value="2.5">2.5 × ATR</option></select></div>
+ </div>
+ <label class="checkrow"><input type="checkbox" id="needVolume" checked> BUY ପୂର୍ବରୁ Volume confirmation</label>
+ <label class="checkrow"><input type="checkbox" id="needTrend" checked> BUY ପାଇଁ EMA Trend confirmation</label>
+ <label class="checkrow"><input type="checkbox" id="needBreakout"> Breakout confirmation ଆବଶ୍ୟକ</label>
+ <p class="signalnote">Conservative ରେ ଅଧିକ confirmation ଦରକାର। Custom Rules ବାଛିଲେ ଉପରର checkbox ଓ RSI/R:R settings ଅନୁସାରେ signal ହିସାବ ହେବ।</p>
+</section>
+<section class="card span-6">
+ <h2>📥 Import OHLCV CSV</h2>
+ <p class="muted small">CSV ରେ Date, Symbol, Open, High, Low, Close, Volume ରହିବା ଦରକାର। ଏକ stock ପାଇଁ ଅନେକ ଦିନର data ରଖନ୍ତୁ (ଭଲ ଫଳ ପାଇଁ 60+ candles)।</p>
+ <label for="csvFile" class="filelabel secondary">Choose CSV file</label><input id="csvFile" type="file" accept=".csv,text/csv" style="margin-top:8px">
+ <div class="actions"><button id="loadCsv">Load & Analyze CSV</button><button class="secondary" id="downloadTemplate">Download CSV Template</button></div>
+ <p class="signalnote">CSV ଉଦାହରଣ header: <code>Date,Symbol,Open,High,Low,Close,Volume,Exchange</code>. Data source ର timestamp ଓ freshness ଆପଣଙ୍କ CSV ର Date ଉପରେ ନିର୍ଭର କରିବ।</p>
+</section>
+<section class="card span-6">
+ <h2>🛡️ Risk Management Calculator</h2>
+ <div class="fields">
+  <div><label for="capital">Trading Capital ₹</label><input id="capital" type="number" min="0" value="100000"></div>
+  <div><label for="riskPerTrade">Risk per Trade %</label><input id="riskPerTrade" type="number" min=".1" max="5" step=".1" value="1"></div>
+ </div>
+ <div class="stats" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:12px 0 0">
+  <div class="stat"><div class="label">Max Planned Risk</div><div class="value" id="riskAmount">₹1,000</div></div>
+  <div class="stat"><div class="label">Position Sizing</div><div class="value" id="positionAmount">—</div><div class="sub">ଚୟନିତ stock ଅନୁସାରେ</div></div>
+ </div>
+ <p class="signalnote">Position size = ଅନୁମୋଦିତ ରୁପି ଝୁମ୍ପ ÷ (Entry − Stop Loss)। Slippage, charges, gap-down ଓ liquidity risk ଏହି ଆନୁମାନରେ ନାହିଁ।</p>
+</section>
+<section class="card span-12">
+ <div class="tagline"><h2>🕯️ Candlestick Chart</h2><span class="data-status" id="chartStatus">DEMO CANDLES — NOT LIVE</span></div>
+ <div class="fields">
+  <div><label for="sheetEndpoint">Google Apps Script Web App URL</label><input id="sheetEndpoint" placeholder="https://script.google.com/macros/s/.../exec"></div>
+  <div><label for="refreshSeconds">Auto refresh (seconds)</label><select id="refreshSeconds"><option value="60">60 seconds</option><option value="120">2 minutes</option><option value="300" selected>5 minutes</option><option value="900">15 minutes</option></select></div>
+ </div>
+ <div class="actions"><button id="connectSheet">Connect / Refresh Google Sheet</button><button class="secondary" id="autoRefresh">Enable Auto Refresh</button><button class="secondary" id="stopRefresh">Stop Auto Refresh</button></div>
+ <p class="signalnote" id="connectionNote">Not connected. DEMO data is fictional. To connect, deploy the supplied Apps Script and paste its Web App URL. GoogleFinance quotes can be delayed up to 20 minutes; historical candles must be supplied separately as OHLCV rows.</p>
+ <div style="width:100%;height:300px;position:relative;margin-top:12px"><canvas id="candleChart" style="width:100%;height:300px;display:block"></canvas></div>
+</section>
+<section class="card span-12">
+ <div class="tagline"><h2>🔎 Selected Stock — Setup Details</h2><span id="detailSymbol" class="data-status">କୌଣସି Stock ବାଛାଯାଇନାହିଁ</span></div>
+ <div id="details" class="empty">Scan results ରେ ଗୋଟିଏ stock ଉପରେ click କରନ୍ତୁ।</div>
+</section>
+</div>
+<div class="foot">ଶିକ୍ଷାମୂଳକ ଉପକରଣ ମାତ୍ର; SEBI-registered investment adviser ଙ୍କ ବ୍ୟକ୍ତିଗତ ପରାମର୍ଶ ନୁହେଁ। କୌଣସି ଅର୍ଡର୍ ପ୍ଲେସ୍ ହୁଏ ନାହିଁ। ଡାଟା ଭୁଲ୍, ପୁରୁଣା ବା ଅସମ୍ପୂର୍ଣ୍ଣ ହୋଇପାରେ। ପ୍ରକୃତ ଟ୍ରେଡ୍ ପୂର୍ବରୁ ଅଧିକାରିକ ଉତ୍ସରେ ଯାଞ୍ଚ କରନ୍ତୁ।</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let stocks=[], visible=[], selected=null, dataMode="DEMO", latestTimestamp=null;
+const fmt=n=>Number.isFinite(n)?n.toLocaleString("en-IN",{maximumFractionDigits:2}):"—";
+const rupee=n=>Number.isFinite(n)?"₹"+fmt(n):"—";
+function dateStr(d){if(!d)return "Timestamp ନାହିଁ";let x=new Date(d);return Number.isNaN(+x)?String(d):x.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"});}
+function seedDemo(){
+ const names=[["RELIANCE","NSE"],["TCS","NSE"],["INFY","NSE"],["HDFCBANK","NSE"],["ICICIBANK","NSE"],["SBIN","NSE"],["ITC","NSE"],["LT","NSE"],["BHARTIARTL","NSE"],["TATAMOTORS","NSE"],["WIPRO","NSE"],["AXISBANK","NSE"]];
+ stocks=names.map((x,i)=>{let base=[1280,3750,1520,1720,1260,790,430,3540,1840,680,290,1180][i];let closes=[];for(let k=0;k<70;k++){let drift=(i%3===0?.0015:i%3===1?.0003:-.0001);base*=1+drift+Math.sin(k*.6+i)*.008+Math.cos(k*.17+i)*.003;closes.push(base)}let candles=closes.map((c,k)=>({date:new Date(Date.now()-(69-k)*86400000).toISOString().slice(0,10),open:c*(1+(Math.sin(k+i)*.004)),high:c*1.012,low:c*.988,close:c,volume:500000+Math.abs(Math.sin(k*.31+i))*1200000}));return {symbol:x[0],exchange:x[1],candles,demo:true};});
+ dataMode="DEMO — NOT LIVE";latestTimestamp=null;
+}
+function avg(a){return a.length?a.reduce((s,n)=>s+n,0)/a.length:NaN}
+function ema(vals,period){if(vals.length<period)return NaN;let e=avg(vals.slice(0,period)),m=2/(period+1);for(let i=period;i<vals.length;i++)e=vals[i]*m+e*(1-m);return e}
+function rsi(vals,p=14){if(vals.length<=p)return NaN;let g=0,l=0;for(let i=vals.length-p;i<vals.length;i++){let d=vals[i]-vals[i-1];if(d>0)g+=d;else l-=d}return l===0?100:100-100/(1+(g/p)/(l/p))}
+function analyze(s){
+ let c=s.candles||[];if(c.length<20)return null;
+ const closes=c.map(x=>x.close), last=c[c.length-1], prev=c[c.length-2], e20=ema(closes,20),e50=ema(closes,50),rr=rsi(closes),avgVol=avg(c.slice(-20).map(x=>x.volume)),atr=avg(c.slice(-14).map(x=>x.high-x.low)),high20=Math.max(...c.slice(-21,-1).map(x=>x.high)),low20=Math.min(...c.slice(-20).map(x=>x.low)),change=(last.close-prev.close)/prev.close*100;
+ const trend=last.close>e20&&e20>e50,volumeOk=last.volume>=avgVol,breakout=last.close>high20,down=last.close<e20&&e20<e50;
+ let style=$("style").value, needTrend=$("needTrend").checked,needVolume=$("needVolume").checked,needBreakout=$("needBreakout").checked;
+ if(style==="conservative"){needTrend=true;needVolume=true;needBreakout=false}
+ if(style==="balanced"){needTrend=true;needVolume=false;needBreakout=false}
+ if(style==="aggressive"){needTrend=false;needVolume=false;needBreakout=false}
+ let ceiling=+$("rsiBuy").value, slMult=+$("riskPct").value, minRR=+$("minRR").value;
+ let entry=last.close,stop=entry-Math.max(atr*slMult,entry*.015),risk=entry-stop,target1=entry+risk*minRR,target2=entry+risk*(minRR+1),rrActual=(target1-entry)/risk;
+ let signal="WAIT",why="ସ୍ପଷ୍ଟ signal ନାହିଁ";
+ const rsiOk=rr>=45&&rr<=ceiling;
+ if(down&&rr<45){signal="SELL";why="EMA trend bearish ଏବଂ RSI ଦୁର୍ବଳ — exit/review"}
+ else if(trend&&rsiOk&&(!needVolume||volumeOk)&&(!needBreakout||breakout)&&rrActual>=minRR){signal="BUY";why="Bullish trend, RSI ଏବଂ ବାଛାଯାଇଥିବା confirmation ମେଳ ହେଉଛି"}
+ else if(trend&&rr>=40&&rr<=72){signal="HOLD";why="Trend positive, କିନ୍ତୁ ନୂଆ entry ପାଇଁ ସମସ୍ତ confirmation ନାହିଁ"}
+ if(style==="custom"&&needTrend&&!trend&&signal==="BUY"){signal="WAIT";why="Custom EMA confirmation ପାସ୍ ହୋଇନାହିଁ"}
+ const displayPrice=Number.isFinite(s.priceOverride)?s.priceOverride:last.close;
+ return {...s,last,prev,price:displayPrice,change,rsi:rr,e20,e50,trend,volumeOk,avgVol,atr,high20,low20,breakout,signal,why,entry:displayPrice,stop:displayPrice-Math.max(atr*slMult,displayPrice*.015),target1:displayPrice+Math.max(atr*slMult,displayPrice*.015)*minRR,target2:displayPrice+Math.max(atr*slMult,displayPrice*.015)*(minRR+1),rr:rrActual,position:Math.floor((+$("capital").value*(+$("riskPerTrade").value/100))/Math.max(displayPrice-(displayPrice-Math.max(atr*slMult,displayPrice*.015)),.01)),lastDate:s.quoteTime||last.date};
+}
+function filtered(){
+ const q=$("search").value.trim().toUpperCase(),ex=$("exchange").value,minP=+$("minPrice").value||0,maxP=+$("maxPrice").value||Infinity,minR=+$("minRsi").value||0,maxR=+$("maxRsi").value||100,minCh=+$("minChange").value||-Infinity,minV=+$("minVolume").value||0;
+ visible=stocks.map(analyze).filter(s=>s&&(!q||s.symbol.includes(q))&&(ex==="both"||s.exchange.toLowerCase()===ex)&&s.price>=minP&&s.price<=maxP&&s.rsi>=minR&&s.rsi<=maxR&&s.change>=minCh&&s.last.volume>=minV&&(!$("trendOnly").checked||s.trend)&&(!$("volumeOnly").checked||s.volumeOk)&&(!$("breakoutOnly").checked||s.breakout)).sort((a,b)=>({BUY:0,HOLD:1,WAIT:2,SELL:3}[a.signal]-({BUY:0,HOLD:1,WAIT:2,SELL:3}[b.signal]))||b.change-a.change);
+ render();
+}
+function render(){
+ $("results").innerHTML=visible.map((s,i)=>`<tr data-index="${i}" style="cursor:pointer"><td><b>${s.symbol}</b><div class="muted small">${s.exchange}${s.demo?" · DEMO":""}</div></td><td>${rupee(s.price)}</td><td class="${s.change>=0?"positive":"negative"}">${s.change>=0?"+":""}${fmt(s.change)}%</td><td>${fmt(s.rsi)}</td><td>${s.trend?"Bullish":s.price<s.e20?"Weak":"Mixed"}</td><td><span class="pill ${s.signal.toLowerCase()}">${s.signal}</span></td><td>1:${fmt(s.rr)}</td><td><a href="https://www.google.com/finance/search?q=${encodeURIComponent((s.exchange==="BSE"?"BOM:":"NSE:")+s.symbol)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:6px 8px;border-radius:7px;background:#22334b;color:#b9d6ff;text-decoration:none;font-weight:700">Check Price ↗</a></td></tr>`).join("");
+ $("noResults").classList.toggle("hidden",visible.length>0);
+ $("statScanned").textContent=visible.length;$("statBuy").textContent=visible.filter(s=>s.signal==="BUY").length;$("statSell").textContent=visible.filter(s=>s.signal==="SELL").length;
+ $("statData").textContent=dataMode.split(" — ")[0];$("statStamp").textContent=latestTimestamp?dateStr(latestTimestamp):"Demo / CSV date";$("modeBadge").textContent=dataMode;
+ $("results").querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",()=>{selected=visible[+tr.dataset.index];showDetails(selected)}));
+ if(selected){let found=visible.find(s=>s.symbol===selected.symbol);if(found){selected=found;showDetails(found)}}
+ updateRisk();
+ drawCandles(selected||visible[0]||null);
+}
+function showDetails(s){
+ $("detailSymbol").textContent=s.symbol+" · "+s.exchange;
+ const stale=!s.demo&&s.lastDate&&((Date.now()-new Date(s.lastDate+"T15:30:00+05:30").getTime())>3*86400000);
+ $("details").className="";
+ $("details").innerHTML=`<div class="stats" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+ <div class="stat"><div class="label">Last Close</div><div class="value">${rupee(s.price)}</div><div class="sub">${s.lastDate||"No date"}</div></div>
+ <div class="stat"><div class="label">Suggestion</div><div class="value"><span class="pill ${s.signal.toLowerCase()}">${s.signal}</span></div><div class="sub">${s.why}</div></div>
+ <div class="stat"><div class="label">RSI (14)</div><div class="value">${fmt(s.rsi)}</div><div class="sub">${s.rsi>70?"Overbought":s.rsi<30?"Oversold":"Neutral zone"}</div></div>
+ <div class="stat"><div class="label">EMA20 / EMA50</div><div class="value" style="font-size:16px">${fmt(s.e20)} / ${fmt(s.e50)}</div><div class="sub">${s.trend?"Bullish alignment":"No bullish alignment"}</div></div></div>
+ ${stale?'<div class="notice">⚠️ CSV ଡାଟା 3 ଦିନରୁ ଅଧିକ ପୁରୁଣା ହୋଇପାରେ। ପ୍ରକୃତ ଦାମ ଯାଞ୍ଚ କରନ୍ତୁ।</div>':""}
+ <div class="fields three"><div class="stat"><div class="label">Entry Reference</div><div class="value">${rupee(s.entry)}</div></div><div class="stat"><div class="label">Stop Loss (ATR)</div><div class="value negative">${rupee(s.stop)}</div></div><div class="stat"><div class="label">Target 1</div><div class="value positive">${rupee(s.target1)}</div></div><div class="stat"><div class="label">Target 2</div><div class="value positive">${rupee(s.target2)}</div></div><div class="stat"><div class="label">Risk : Reward</div><div class="value">1 : ${fmt(s.rr)}</div></div><div class="stat"><div class="label">Suggested Qty</div><div class="value">${fmt(s.position)}</div><div class="sub">Risk budget ଆଧାରିତ ଆନୁମାନ</div></div></div>
+ <div class="actions"><a href="https://www.google.com/finance/search?q=${encodeURIComponent((s.exchange==="BSE"?"BOM:":"NSE:")+s.symbol)}" target="_blank" rel="noopener noreferrer" class="filelabel secondary" style="text-decoration:none">Open ${s.symbol} in Google Finance ↗</a></div>
+ <p class="signalnote"><b>Confirmation:</b> EMA20 ${fmt(s.e20)} · EMA50 ${fmt(s.e50)} · RSI ${fmt(s.rsi)} · Volume ${fmt(s.last.volume)} (20-day avg ${fmt(s.avgVol)}) · 20-day high ${rupee(s.high20)} · Breakout ${s.breakout?"Yes":"No"} · Data date ${s.lastDate||"unknown"}.</p>
+ <p class="signalnote"><b>ଅର୍ଥ:</b> ${s.why}. Entry/Stop/Target ହେଉଛି ନିୟମ-ଆଧାରିତ ଆନୁମାନ; ଗ୍ୟାରେଣ୍ଟି ନୁହେଁ। Gap, liquidity, slippage ଓ transaction charges ଫଳାଫଳ ବଦଳାଇପାରେ।</p>`;
+ updateRisk(s);
+}
+
+let refreshTimer=null, liveConnected=false;
+function drawCandles(s=selected){
+ const canvas=$("candleChart"); if(!canvas)return;
+ const ctx=canvas.getContext("2d"), dpr=window.devicePixelRatio||1, w=canvas.clientWidth||600, h=300;
+ canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,w,h);ctx.fillStyle="#0b1424";ctx.fillRect(0,0,w,h);
+ const cs=s&&s.candles?s.candles.slice(-60):[];
+ if(cs.length<2){ctx.fillStyle="#91a2ba";ctx.font="13px system-ui";ctx.fillText("Select a stock with at least 2 OHLC candles",16,30);return}
+ const pad={l:12,r:62,t:16,b:24}, pw=w-pad.l-pad.r, ph=h-pad.t-pad.b;
+ const hi=Math.max(...cs.map(c=>c.high)), lo=Math.min(...cs.map(c=>c.low)), span=(hi-lo)||1;
+ const y=v=>pad.t+(hi-v)/span*ph;
+ ctx.strokeStyle="#26364b";ctx.lineWidth=1;ctx.fillStyle="#91a2ba";ctx.font="10px system-ui";
+ for(let i=0;i<=4;i++){let val=hi-span*i/4, yy=y(val);ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(w-pad.r,yy);ctx.stroke();ctx.fillText(val.toFixed(2),w-pad.r+5,yy+3)}
+ const step=pw/cs.length, body=Math.max(2,Math.min(9,step*.62));
+ cs.forEach((c,i)=>{let x=pad.l+i*step+step/2, up=c.close>=c.open;ctx.strokeStyle=up?"#26c281":"#ff647c";ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.moveTo(x,y(c.high));ctx.lineTo(x,y(c.low));ctx.stroke();let top=y(Math.max(c.open,c.close)), bot=y(Math.min(c.open,c.close));ctx.fillRect(x-body/2,top,body,Math.max(1,bot-top))});
+ ctx.fillStyle="#91a2ba";ctx.fillText(cs[0].date||"",pad.l,h-6);ctx.fillText(cs[cs.length-1].date||"",Math.max(pad.l,w-pad.r-75),h-6);
+ $("chartStatus").textContent=(s.demo?"DEMO CANDLES — NOT LIVE":(liveConnected?"SHEET/CSV OHLCV — VERIFY DATE":"CSV OHLCV"));
+}
+function applyLiveRows(payload){
+ if(!payload||!Array.isArray(payload.stocks))throw new Error("Response ରେ stocks array ମିଳିଲା ନାହିଁ");
+ const incoming=payload.stocks.map(x=>{
+   const candles=(Array.isArray(x.candles)?x.candles:[]).map(c=>({date:String(c.date||""),open:+c.open,high:+c.high,low:+c.low,close:+c.close,volume:+c.volume||0}))
+     .filter(c=>[c.open,c.high,c.low,c.close].every(Number.isFinite)&&c.high>=Math.max(c.open,c.close)&&c.low<=Math.min(c.open,c.close));
+   // Quote-only rows are intentionally not converted into fake OHLC candles.
+   if(!candles.length){
+     const prev=stocks.find(s=>s.symbol===String(x.symbol).toUpperCase());
+     // Reuse only previously imported real CSV/Sheet candles. Never promote demo candles to live.
+     if(prev && !prev.demo && prev.candles && prev.candles.length) candles.push(...prev.candles.map(c=>({...c})));
+   }
+   return {symbol:String(x.symbol||"").toUpperCase(),exchange:String(x.exchange||"NSE").toUpperCase(),candles,demo:false,quotePrice:Number.isFinite(+x.price)?+x.price:null,quoteTime:x.timestamp||payload.timestamp||null};
+ }).filter(s=>s.symbol);
+ if(!incoming.length)throw new Error("Valid stock data ମିଳିଲା ନାହିଁ");
+ // Do not claim live price if a symbol only has candles and no quote.
+ const old=stocks;
+ stocks=incoming.map(s=>{
+   const prior=old.find(o=>o.symbol===s.symbol);
+   if(s.quotePrice!==null && s.candles.length){
+     const last=s.candles[s.candles.length-1];
+     if(Math.abs(last.close-s.quotePrice)/Math.max(s.quotePrice,1)>.0001){
+       // A quote without a valid candle stays separate; no synthetic candle is created.
+       s.priceOverride=s.quotePrice;
+     }
+   }
+   return s;
+ });
+ dataMode="GOOGLE SHEETS";
+ liveConnected=true;
+ latestTimestamp=payload.timestamp||incoming.map(s=>s.quoteTime).filter(Boolean).sort().at(-1)||null;
+ selected=stocks.find(s=>selected&&s.symbol===selected.symbol)||stocks[0]||null;
+ filtered();
+ $("connectionNote").textContent="Connected to Google Sheets bridge. Quote timestamps/data freshness depend on GoogleFinance and the sheet. Candlestick history is only genuine if OHLCV candles were supplied in the sheet.";
+}
+async function connectSheet(){
+ const url=$("sheetEndpoint").value.trim();
+ if(!url){alert("ପ୍ରଥମେ Google Apps Script Web App URL paste କରନ୍ତୁ।");return}
+ if(!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/.test(url)){alert("ଠିକ୍ deployed Apps Script URL ଦିଅନ୍ତୁ (…/exec)।");return}
+ $("connectSheet").disabled=true;$("connectionNote").textContent="Google Sheets data ଆଣୁଛି…";
+ try{
+   const res=await fetch(url,{cache:"no-store"});
+   if(!res.ok)throw new Error("HTTP "+res.status);
+   const payload=await res.json();applyLiveRows(payload);
+ }catch(e){
+   liveConnected=false;
+   $("connectionNote").textContent="Connection failed: "+e.message+". URL deployment access ଓ JSON response ଯାଞ୍ଚ କରନ୍ତୁ. DEMO/CSV data କୁ LIVE ବୋଲି ଦେଖାଯିବ ନାହିଁ.";
+   alert("Google Sheets connect ହେଲା ନାହିଁ: "+e.message);
+ }finally{$("connectSheet").disabled=false}
+}
+
+function updateRisk(s=selected){let risk=(+$("capital").value||0)*(+$("riskPerTrade").value||0)/100;$("riskAmount").textContent=rupee(risk);$("positionAmount").textContent=s?fmt(Math.floor(risk/Math.max(s.entry-s.stop,.01)))+" shares":"Stock ବାଛନ୍ତୁ"}
+function parseCSV(text){
+ const lines=text.replace(/^\uFEFF/,"").trim().split(/\r?\n/);if(lines.length<2)throw Error("CSV ରେ data ନାହିଁ");
+ const split=line=>line.split(",").map(x=>x.trim().replace(/^"|"$/g,""));
+ const headers=split(lines[0]).map(x=>x.toLowerCase().replace(/[\s_-]/g,""));
+ const idx=names=>headers.findIndex(h=>names.includes(h));
+ const ix={date:idx(["date","datetime","timestamp","time"]),symbol:idx(["symbol","ticker","stock","tradingsymbol"]),open:idx(["open","o"]),high:idx(["high","h"]),low:idx(["low","l"]),close:idx(["close","c","adjclose"]),volume:idx(["volume","vol","v"]),exchange:idx(["exchange","market"])};
+ ["date","symbol","open","high","low","close","volume"].forEach(k=>{if(ix[k]<0)throw Error("CSV ରେ "+k+" column ଦରକାର")});
+ let map={};
+ for(let i=1;i<lines.length;i++){if(!lines[i].trim())continue;let a=split(lines[i]),sym=a[ix.symbol].toUpperCase();if(!sym)continue;let c={date:a[ix.date],open:+a[ix.open],high:+a[ix.high],low:+a[ix.low],close:+a[ix.close],volume:+a[ix.volume]};if(![c.open,c.high,c.low,c.close,c.volume].every(Number.isFinite))continue;(map[sym]??={symbol:sym,exchange:ix.exchange>=0?(a[ix.exchange]||"NSE").toUpperCase():"NSE",candles:[],demo:false}).candles.push(c)}
+ const out=Object.values(map);out.forEach(s=>s.candles.sort((a,b)=>new Date(a.date)-new Date(b.date)));if(!out.length)throw Error("Valid stock data ମିଳିଲା ନାହିଁ");return out;
+}
+$("loadCsv").onclick=async()=>{let f=$("csvFile").files[0];if(!f){alert("ପ୍ରଥମେ CSV file ବାଛନ୍ତୁ।");return}try{stocks=parseCSV(await f.text());dataMode="CSV IMPORT";latestTimestamp=stocks.flatMap(s=>s.candles.map(c=>c.date)).sort().at(-1)||null;selected=null;filtered();alert(stocks.length+" stocks ର CSV data load ହେଲା। ଡାଟାର date ଓ ସଠିକତା ଯାଞ୍ଚ କରନ୍ତୁ।")}catch(e){alert("CSV Error: "+e.message)}};
+$("downloadTemplate").onclick=()=>{let rows=["Date,Symbol,Open,High,Low,Close,Volume,Exchange","2026-09-01,EXAMPLE,100,103,99,102,120000,NSE","2026-09-02,EXAMPLE,102,105,101,104,150000,NSE"];download("satrughan_ohlcv_template.csv",rows.join("\n"))};
+function download(name,content){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([content],{type:"text/csv;charset=utf-8;"}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
+$("export").onclick=()=>{let rows=[["Symbol","Exchange","Date","Close","ChangePct","RSI14","EMA20","EMA50","Signal","Entry","StopLoss","Target1","Target2","RiskReward","Volume","DataMode"]];visible.forEach(s=>rows.push([s.symbol,s.exchange,s.lastDate,s.price,s.change,s.rsi,s.e20,s.e50,s.signal,s.entry,s.stop,s.target1,s.target2,s.rr,s.last.volume,dataMode]));download("satrughan_scan_results.csv",rows.map(r=>r.join(",")).join("\n"))};
+$("rescan").onclick=filtered;$("applyFilters").onclick=filtered;
+["search","exchange","minPrice","maxPrice","minRsi","maxRsi","minChange","minVolume","trendOnly","volumeOnly","breakoutOnly","style","minRR","rsiBuy","riskPct","needVolume","needTrend","needBreakout"].forEach(id=>$(id).addEventListener("change",filtered));
+["capital","riskPerTrade"].forEach(id=>$(id).addEventListener("input",()=>updateRisk()));
+$("style").addEventListener("change",()=>{if($("style").value==="conservative"){$("needTrend").checked=true;$("needVolume").checked=true;$("needBreakout").checked=false;$("rsiBuy").value=65;$("minRR").value="2"}else if($("style").value==="balanced"){$("needTrend").checked=true;$("needVolume").checked=false;$("needBreakout").checked=false;$("rsiBuy").value=68}else if($("style").value==="aggressive"){$("needTrend").checked=false;$("needVolume").checked=false;$("needBreakout").checked=false;$("rsiBuy").value=72}});
+$("reset").onclick=()=>{$("search").value="";$("exchange").value="both";$("minPrice").value=50;$("maxPrice").value=10000;$("minRsi").value=45;$("maxRsi").value=68;$("minChange").value=-2;$("minVolume").value=0;$("trendOnly").checked=false;$("volumeOnly").checked=false;$("breakoutOnly").checked=false;$("style").value="conservative";$("needTrend").checked=true;$("needVolume").checked=true;$("needBreakout").checked=false;$("minRR").value="2";$("rsiBuy").value=65;$("riskPct").value="1.5";filtered()};
+$("connectSheet").onclick=connectSheet;
+$("autoRefresh").onclick=()=>{if(refreshTimer)clearInterval(refreshTimer);const ms=Math.max(60,+$("refreshSeconds").value||300)*1000;refreshTimer=setInterval(()=>{if($("sheetEndpoint").value.trim())connectSheet()},ms);$("connectionNote").textContent="Auto refresh enabled ("+(ms/1000)+" sec). GoogleFinance itself may still delay quotes by up to 20 minutes.";};
+$("stopRefresh").onclick=()=>{if(refreshTimer)clearInterval(refreshTimer);refreshTimer=null;$("connectionNote").textContent="Auto refresh stopped. Data source status remains "+dataMode+".";
+};
+window.addEventListener("resize",()=>drawCandles(selected||visible[0]||null));
+seedDemo();filtered();
+</script>
+</body></html>
